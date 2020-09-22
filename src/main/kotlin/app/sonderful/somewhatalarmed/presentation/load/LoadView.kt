@@ -1,4 +1,4 @@
-package app.sonderful.somewhatalarmed
+package app.sonderful.somewhatalarmed.presentation.load
 
 import app.sonderful.somewhatalarmed.types.Package
 import javafx.beans.binding.Bindings
@@ -7,9 +7,15 @@ import javafx.scene.control.SelectionMode
 import javafx.stage.FileChooser
 import tornadofx.*
 
-class MainView : View("Somewhat Alarmed") {
+/**
+ * When the application starts the first requirement is to load the dumpsys alarm data. The only way to load those data
+ * at present is to read a text file.
+ *
+ * This view is responsible for loading the data and letting the user select the package they're interested in.
+ */
+class LoadView : View("Somewhat Alarmed") {
 
-    private val viewModel: MainViewModel by inject()
+    private val viewModel: LoadViewModel by inject()
 
     override val root = vbox {
         style {
@@ -47,18 +53,21 @@ class MainView : View("Somewhat Alarmed") {
             readonlyColumn("UID", Package::uid).prefWidth(75)
             readonlyColumn("Name", Package::name).prefWidth(350)
             onUserSelect {
-                viewModel.loadDetailsForPackage(it)
+                viewModel.loadDetailsForPackage(this@LoadView, it)
             }
         }
         button("See Details") {
             disableProperty().bind(Bindings.isEmpty(tv.selectionModel.selectedItems))
             action {
                 tv.selectedItem?.let {
-                    viewModel.loadDetailsForPackage(it)
+                    viewModel.loadDetailsForPackage(this@LoadView, it)
                 }
             }
         }
     }
 }
 
-class Launcher : App(MainView::class)
+/**
+ * Entry point for the application.
+ */
+class Launcher : App(LoadView::class)

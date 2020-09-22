@@ -20,7 +20,7 @@ javafx {
 }
 
 application {
-    mainClassName = "app.sonderful.somewhatalarmed.Launcher"
+    mainClassName = "app.sonderful.somewhatalarmed.presentation.load.Launcher"
 }
 
 tasks.withType<KotlinCompile> {
