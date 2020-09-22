@@ -1,36 +1,55 @@
 package app.sonderful.somewhatalarmed
 
+import app.sonderful.somewhatalarmed.types.Package
+import javafx.beans.binding.Bindings
+import javafx.scene.control.SelectionMode
+import javafx.stage.FileChooser
 import tornadofx.*
 
 class MainView : View("Somewhat Alarmed") {
 
-    val viewModel: MainViewModel by inject()
+    private val viewModel: MainViewModel by inject()
 
     override val root = vbox {
         style {
             spacing = 5.px
             padding = box(20.px)
         }
-        label("Mice detected in registry")
-//        miceListView = listview(controller.values) {
-//            selectionModel.selectionMode = SelectionMode.MULTIPLE
-//            style {
-//                prefHeight = 200.px
-//                prefWidth = 250.px
-//            }
-//            tooltip("Hold control or shift to select multiple mice")
-//        }
-//        button {
-//            label("Invert Scroll")
-//            style {
-//                spacing = 5.px
-//            }
-//            action {
-//                Platform.runLater {
-//                    controller.invertScroll(miceListView.selectionModel.selectedIndices)
-//                }
-//            }
-//        }
+        label("Load the output of `adb shell dumpsys alarm`")
+        button("Choose Input File") {
+            action {
+                val filename = chooseFile(
+                    "Select output of dumpsys alarm",
+                    arrayOf(
+                        FileChooser.ExtensionFilter("Text files", "*.txt"),
+                        FileChooser.ExtensionFilter("All files", "*"),
+                    ),
+                    null,
+                    null,
+                    FileChooserMode.Single
+                )
+
+                viewModel.readAndParseFile(filename[0])
+            }
+        }
+        label("Detected Packages")
+        val tv = tableview(viewModel.packages) {
+            tooltip("Choose a package to load alarm details")
+            selectionModel.selectionMode = SelectionMode.SINGLE
+            readonlyColumn("UID", Package::uid)
+            readonlyColumn("Name", Package::name)
+            onUserSelect {
+                viewModel.loadDetailsForPackage(it)
+            }
+        }
+        button("See Details") {
+            disableProperty().bind(Bindings.isEmpty(tv.selectionModel.selectedItems))
+            action {
+                tv.selectedItem?.let {
+                    viewModel.loadDetailsForPackage(it)
+                }
+            }
+        }
     }
 }
 
