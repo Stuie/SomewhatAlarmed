@@ -16,7 +16,7 @@ How to Use
 
 The application can currently only load the data it needs from a text file. You need to run `adb shell dumpsys alarm` and save the output to a file. Then you can select that file in Somewhat Alarmed. If everything worked correctly, you'll see a list of packages. If you don't see the package you're interested in, then either the input was not recognized, or there are no alarms for that package.
 
-Double-clicking the package in the list, or selecting it and pressing the "See Details" button will take you to a screen with a list of alarms associated with that package. Double-clicking the alarm in the list, or highligting it and pressing the "See Details" button will take you to a screen contaaining details about that alarm.
+Double-clicking the package in the list, or selecting it and pressing the "See Details" button will take you to a screen with a list of alarms associated with that package. Double-clicking the alarm in the list, or highligting it and pressing the "See Details" button will take you to a screen containing details about that alarm.
 
 Acknowledgements
 ----------------
