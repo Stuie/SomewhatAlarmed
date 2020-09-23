@@ -21,7 +21,7 @@ Double-clicking the package in the list, or selecting it and pressing the "See D
 Acknowledgements
 ----------------
 
-I found a repository called [DumpsysAlarm](https://github.com/Dottorhouse/DumpsysAlarm) by Dario R. on [an old StackOverflow thread](https://stackoverflow.com/questions/28742884/how-to-read-adb-shell-dumpsys-alarm-output), and I thought would do what I wanted. Unfortunately, I'm not familiar with the tooling, and the project and associated account appear to have been abandoned for the last few years. I didn't base any of my code on any code found in that repository, but the idea is certainly the same.
+I found a repository called [DumpsysAlarm](https://github.com/Dottorhouse/DumpsysAlarm) by Dario R. on [an old StackOverflow thread](https://stackoverflow.com/questions/28742884/how-to-read-adb-shell-dumpsys-alarm-output), and I thought it would do what I wanted. Unfortunately, I'm not familiar with the tooling, and the project and associated account appear to have been abandoned for the last few years. I didn't base any of my code on any code found in that repository, but the idea is certainly the same.
 
 License
 -------
