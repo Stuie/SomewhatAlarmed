@@ -14,6 +14,7 @@ class PackageDetailViewModel : ViewModel() {
 
     val pendingAlarms: ObservableList<Alarm> = FXCollections.observableArrayList()
 
+    // TODO Replace this with something better when you understand TornadoFX's injection/param stuff better
     fun setup(currentPackage: Package, alarmManagerState: AlarmManagerState) {
         this.currentPackage = currentPackage
         this.alarmManagerState = alarmManagerState
@@ -25,5 +26,9 @@ class PackageDetailViewModel : ViewModel() {
                 pendingAlarms.add(alarm)
             }
         }
+    }
+
+    fun loadDetailsForAlarm(selectedAlarm: Alarm) {
+        find<AlarmDetailView>(mapOf(AlarmDetailView::currentAlarm to selectedAlarm)).openWindow()
     }
 }
